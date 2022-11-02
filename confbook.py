@@ -7,21 +7,28 @@ Sends configuration lines over SSH to a list of hosts and returns the state of t
 
 import hosts
 from IOS.ios import ios_config
+from Huawei.huawei import huawei_config
 from termcolor import colored
 
-def config(configFile):
+def config(platform,configFile,hostsToConfigure):
 
     cfg_list = open(configFile).readlines()
     hostStateChange = {}
 
     if platform == "ios":
         hostStateChange = ios_config(hostsToConfigure,cfg_list,hostStateChange)
+    elif platform == "huawei":
+        hostStateChange = huawei_config(hostsToConfigure,cfg_list,hostStateChange)
     else:
         pass
     
     print("\nCommands run:")
+    print("================================")
     for line in cfg_list:
-        print(colored(line, 'cyan'))
+        print(colored(line.rstrip(), 'cyan'))
+    print("================================")
+    print("================================")
+    print()
     for host,state in hostStateChange.items():
         if state == "Changed":
          print(colored(f"{host} : {state}", 'yellow'))
@@ -30,9 +37,9 @@ def config(configFile):
 
 ### Admin-defined variables
 ##############################
-platform = "ios"    ### Platform of configured devices - ios, huawei, mikrotik, etc.
-hostsToConfigure = hosts.cisco_spokes   ### List of configured devices, located in hosts.py
-configFile = "Stoyansible\IOS\Configs\playbook_ios.txt"     ### Path to configuration file
+platform = "huawei"    ### Platform of configured devices - ios, huawei, mikrotik, etc.
+hostsToConfigure = hosts.huawei_devs   ### List of configured devices, located in hosts.py
+configFile = "Stoyansible\Huawei\Configs\config_acl_huawei.txt"     ### Path to configuration file
 ##############################
 
-config(configFile)
+config(platform,configFile,hostsToConfigure)

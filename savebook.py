@@ -7,14 +7,16 @@ Saves the configuration of list of given hosts and returns state of the made cha
 
 import hosts
 from IOS.ios import ios_save
+from Huawei.huawei import huawei_save
 from termcolor import colored
 
-def save():
+def save(platform,hostsToSave):
     hostStateChange= {}
 
     if platform == "ios":
         hostStateChange = ios_save(hostsToSave, hostStateChange)
     else:
+        hostStateChange = huawei_save(hostsToSave, hostStateChange)
         pass
 
     for host,state in hostStateChange.items():
@@ -25,9 +27,9 @@ def save():
 
 ### Admin-defined variables
 ##############################
-platform = "ios"    ### Platform of configured devices - ios, huawei, mikrotik, etc.
-hostsToSave = hosts.cisco_spokes     ### List of configured devices, located in hosts.py
+platform = "huawei"    ### Platform of configured devices - ios, huawei, mikrotik, etc.
+hostsToSave = hosts.huawei_devs     ### List of configured devices, located in hosts.py
 ##############################
 
-save()
+save(platform,hostsToSave)
 

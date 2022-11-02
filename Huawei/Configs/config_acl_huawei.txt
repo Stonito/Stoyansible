@@ -1,0 +1,2 @@
+acl name test 2555
+rule 5 permit source 10.10.10.69 0

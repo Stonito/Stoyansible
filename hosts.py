@@ -1,8 +1,11 @@
 cisco_devs = [
-    "10.10.10.1",       #rtr-01-test
-    "10.10.10.2",       #rtr-02-test  
-    "10.10.10.3",       #rtr-03-test
+    "10.10.20.1",     #RTR-01-CISCO
+    "10.10.20.2",     #RTR-02-CISCO    
+    "10.10.20.3",     #RTR-03-CISCO
 ]
 
-### Coming soon
-huawei_devs = []
+huawei_devs = [
+    "10.20.20.1",     #RTR-01-HUAWEI
+    "10.20.20.2",     #RTR-02-HUAWEI
+    "10.20.20.3"      #RTR-03-HUAWEI
+]
