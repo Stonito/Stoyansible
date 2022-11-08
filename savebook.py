@@ -10,26 +10,28 @@ from IOS.ios import ios_save
 from Huawei.huawei import huawei_save
 from termcolor import colored
 
-def save(platform,hostsToSave):
+### Admin-defined variables
+##############################
+platform = "huawei"    ### Platform of configured devices - ios, huawei, mikrotik, etc.
+hostsToSave = hosts.huawei_dev     ### List of configured devices, located in hosts.py
+##############################
+
+def main(platform,hostsToSave):
     hostStateChange= {}
 
     if platform == "ios":
         hostStateChange = ios_save(hostsToSave, hostStateChange)
-    else:
+    elif platform == "huawei":
         hostStateChange = huawei_save(hostsToSave, hostStateChange)
+    else:
         pass
 
     for host,state in hostStateChange.items():
-        if state == "New configuration saved!":
-            print(colored(f"{host} : {state}", 'green'))
+        if state == "Changed":
+            print(colored(f"{host} : Configuration saved!", 'yellow'))
         else:
-            print(colored(f"{host} : {state}", 'yellow'))
+            print(colored(f"{host} : OK", 'green'))
 
-### Admin-defined variables
-##############################
-platform = "huawei"    ### Platform of configured devices - ios, huawei, mikrotik, etc.
-hostsToSave = hosts.huawei_devs     ### List of configured devices, located in hosts.py
-##############################
-
-save(platform,hostsToSave)
+if __name__ == '__main__':
+    main(platform,hostsToSave)
 

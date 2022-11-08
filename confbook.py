@@ -10,7 +10,14 @@ from IOS.ios import ios_config
 from Huawei.huawei import huawei_config
 from termcolor import colored
 
-def config(platform,configFile,hostsToConfigure):
+### Admin-defined variables
+##############################
+platform = "huawei"    ### Platform of configured devices - ios, huawei, mikrotik, etc.
+hostsToConfigure = hosts.huawei_devs   ### List of configured devices, located in hosts.py
+configFile = "Stoyansible2.0\Huawei\Configs\config_acl_huawei.txt"     ### Path to configuration file
+##############################
+
+def main(platform,configFile,hostsToConfigure):
 
     cfg_list = open(configFile).readlines()
     hostStateChange = {}
@@ -35,11 +42,5 @@ def config(platform,configFile,hostsToConfigure):
         else:
             print(colored(f"{host} : {state}", 'green'))
 
-### Admin-defined variables
-##############################
-platform = "huawei"    ### Platform of configured devices - ios, huawei, mikrotik, etc.
-hostsToConfigure = hosts.huawei_devs   ### List of configured devices, located in hosts.py
-configFile = "Stoyansible\Huawei\Configs\config_acl_huawei.txt"     ### Path to configuration file
-##############################
-
-config(platform,configFile,hostsToConfigure)
+if __name__ == '__main__':
+    main(platform,configFile,hostsToConfigure)
